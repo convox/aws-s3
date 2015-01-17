@@ -8,6 +8,4 @@ Uses [fakes3](https://github.com/jubos/fake-s3) to run a local S3 daemon.
 
 ## License
 
-Apache 2.0
-
-&copy; 2015 David Dollar
+Apache 2.0 &copy; 2015 David Dollar
