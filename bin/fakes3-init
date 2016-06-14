@@ -1,0 +1,39 @@
+#!/bin/bash
+
+AWS_ACCESS=""
+AWS_SECRET=""
+AWS_BUCKET=""
+
+while getopts ":a:s:b:" opt; do
+  case $opt in
+    a)
+      AWS_ACCESS=$OPTARG;
+      ;;
+    s)
+      AWS_SECRET=$OPTARG;
+      ;;
+    b)
+      AWS_BUCKET=$OPTARG;
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+if [ -z "$AWS_ACCESS" ] || [ -z "$AWS_BUCKET" ] || [ -z "$AWS_SECRET" ] ; then
+    echo "Missing or invalid arguments. Aborting.";
+    exit 1;
+fi
+
+export AWS_ACCESS="${AWS_ACCESS}";
+export AWS_SECRET="${AWS_SECRET}";
+export AWS_BUCKET="${AWS_BUCKET}";
+
+echo "Starting fakeS3 instance with parameters:"
+echo "---------------------------------------------------------------------------"
+echo "AWS_BUCKET: $AWS_BUCKET / AWS_SECRET: $AWS_SECRET / AWS_ACCESS: $AWS_ACCESS"
+echo "---------------------------------------------------------------------------"
+
+bash -c "/opt/fakes3/bin/fakes3-convox"
